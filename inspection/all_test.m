@@ -1,16 +1,16 @@
 addpath ../lib
 addpath ../lib/FeatureExtraction
 
-wtr = Watermark("../Image/jai-logo-100.jpg");
-% wtr = Watermark("../Image/id.jpg");
+wtr = Watermark("../../Image/jai-logo-100.jpg");
+% wtr = Watermark("../../Image/id.jpg");
 
 
 %% Embed
-% dht_audio = AudioDHT("../Sound/Thousand Yard Stare.wav");
-% fe_audio = AudioFE("../Sound/Thousand Yard Stare.wav");
-% lbp_audio = MyAudioLBP("../Sound/Thousand Yard Stare.wav");
-fe_audio = AudioFE("../Sound/voice.mp3");
-lbp_audio = MyAudioLBP("../Sound/voice.mp3");
+% dht_audio = AudioDHT("../../Sound/Thousand Yard Stare.wav");
+% fe_audio = AudioFE("../../Sound/Thousand Yard Stare.wav");
+% lbp_audio = MyAudioLBP("../../Sound/Thousand Yard Stare.wav");
+fe_audio = AudioFE("../../Sound/voice.mp3");
+lbp_audio = MyAudioLBP("../../Sound/voice.mp3");
 
 % afb : audio feature binary
 % dht_afb = dht_audio.toB(wtr.height, wtr.width);
@@ -23,11 +23,11 @@ lbp_key = Key(xor(wtr.data, lbp_afb));
 
 
 %% Detection
-% d_dht_audio = AudioDHT("../Sound/Thousand Yard Stare(awgn).wav");
-% d_fe_audio = AudioFE("../Sound/Thousand Yard Stare(awgn).wav");
-% d_lbp_audio = MyAudioLBP("../Sound/Thousand Yard Stare(awgn).wav");
-d_fe_audio = AudioFE("../Sound/voice.mp3");
-d_lbp_audio = MyAudioLBP("../Sound/voice.mp3");
+% d_dht_audio = AudioDHT("../../Sound/Thousand Yard Stare(awgn).wav");
+% d_fe_audio = AudioFE("../../Sound/Thousand Yard Stare(awgn).wav");
+% d_lbp_audio = MyAudioLBP("../../Sound/Thousand Yard Stare(awgn).wav");
+d_fe_audio = AudioFE("../../Sound/voice.mp3");
+d_lbp_audio = MyAudioLBP("../../Sound/voice.mp3");
 
 % d_dht_afb = d_dht_audio.toB(dht_key.height, dht_key.width);
 d_fe_afb = d_fe_audio.toB(fe_key.height, fe_key.width);

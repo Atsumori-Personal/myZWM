@@ -1,4 +1,4 @@
-function res = ps(x)
+function res = lps(x)
 
 n = pow2(nextpow2(length(x)));
 y = fft(x, n);
