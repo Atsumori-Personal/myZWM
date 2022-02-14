@@ -1,8 +1,8 @@
 addpath ../lib
 addpath ../lib/FeatureExtraction
 
-% wtr = Watermark("../../Image/jai-logo-100.jpg");
-wtr = Watermark("../../Image/jai-logo-50.jpg");
+wtr = Watermark("../../Image/jai-logo-100.jpg");
+% wtr = Watermark("../../Image/jai-logo-50.jpg");
 % wtr = Watermark("../../Image/jai-logo-20.jpg");
 % wtr = Watermark("../../Image/id.jpg");
 % wtr = Watermark("../../Image/robo.jpg");
@@ -40,18 +40,25 @@ disp("BER : " + num2str(ber));
 
 
 %% Fragile evaluation
-difbit = xor(afb, d_afb);
+difbit = eq(afb, d_afb);
 imshow(difbit);
-tmp = zeros(wtr.height, wtr.width);
+tmp = ones(wtr.height, wtr.width);
 [benum, ber] = biterr(difbit, tmp);
 disp(ber);
 
 wtrsz = wtr.height * wtr.width;
-difidx = zeros(1, benum);
-idx = 1;
+dixidx = zeros(1, benum);
 for i = 1 : wtrsz
-    if difbit(i) == 1
-        difidx(idx) = i;
-        idx = idx + 1;
+    if ()
+end
+
+wtrbin = reshape(wtr.data', 1, wtrsz);
+afbin = reshape(afb', 1, wtrsz);
+d_afbin = reshape(d_afb, 1, wtrsz);
+difidx = [];
+% blocksz = floor(audio.length / wtrsz);
+for i = 1 : wtrsz
+    if afbin(i) == d_afbin(i)
+        
     end
 end

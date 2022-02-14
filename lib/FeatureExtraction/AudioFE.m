@@ -1,4 +1,4 @@
-classdef AudioLPS
+classdef AudioFE
     properties
         data
         fs
@@ -6,7 +6,7 @@ classdef AudioLPS
         channel
     end
     methods
-        function obj = AudioLPS(path)
+        function obj = AudioFE(path)
             [obj.data, obj.fs] = audioread(path);
             [obj.length, obj.channel] = size(obj.data);
             
@@ -16,6 +16,10 @@ classdef AudioLPS
                 obj.data = obj.data(:, 1);
             end
             % obj.data = highpass(obj.data, 0.02);
+            % [MFCC]
+            % mfccres = mfcc(obj.data, obj.fs);
+            % obj.data = mfccres(:,1);
+            % [obj.length, ~] = size(obj.data);
         end
 
         function res = toB(obj, height, width)
@@ -24,23 +28,22 @@ classdef AudioLPS
             M = height * width;
             Q = floor(obj.length / M);
 
-            ave = mean(lps(obj.data));
-            LPS = zeros(1, M);
+            sqData = obj.data .^ 2;
+            Eave = sum(sqData) / M;
+            FE = zeros(1, M);
             for i = 1:M
-                tmp = lps(obj.data((i-1)*Q+1 : i*Q));
-                LPS(i) = mean(tmp);
+                FE(i) = sum(sqData((i-1)*Q+1 : i*Q));
             end
-            B = zeros(1, M, 'logical');
+            E = zeros(1, M, 'logical');
             for i = 1:M
-                if LPS(i) > ave
-                    B(i) = 1;
+                if FE(i) > Eave
+                    E(i) = 1;
                 else
-                    B(i) = 0;
+                    E(i) = 0;
                 end
             end
-            res = (reshape(B, [width, height]))';
-            % res = B;
-            % res = ave / max(abs(lps(obj.data)));
+            % res = (reshape(E, [width, height]))';
+            res = Eave;
         end
     end
 end
